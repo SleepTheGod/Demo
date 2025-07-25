@@ -77,30 +77,30 @@ setInterval("farbtauscher()",5000);text="TrillKr3W";string2array(text);divserzeu
     })();
   </script>
 <script>
-  let player;
-
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('yt-player', {
-      videoId: 'SI56-VUfNEw',
-      height: '0',
-      width: '0',
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        loop: 1,
-        playlist: 'SI56-VUfNEw',
-        modestbranding: 1,
-        rel: 0,
-        showinfo: 0
-      },
-      events: {
-        onReady: function (event) {
-          event.target.setVolume(100);
-          event.target.unMute();
-          event.target.playVideo();
-        }
-      }
+    // Intercept right-click
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+      alert("get rooted skid");
+      window.location.href = "https://twitter.com/zk_shark";
     });
-  }
-</script>
+
+    // Devtools detection via dimension changes
+    (function() {
+      const threshold = 160;
+
+      setInterval(function() {
+        const devtoolsOpen =
+          window.outerWidth - window.innerWidth > threshold ||
+          window.outerHeight - window.innerHeight > threshold;
+
+        if (devtoolsOpen) {
+          // Attempt to close tab or break rendering
+          window.open('', '_self');
+          window.close();
+          document.body.innerHTML = "";
+          window.location.replace("about:blank");
+        }
+      }, 500);
+    })();
+  </script>
 </html>
